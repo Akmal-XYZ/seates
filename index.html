@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEA INDONESIA [ SA:MP</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="https://images2.imgbox.com/c2/1a/YGLZL8sn_o.jpeg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .video-section {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* tinggi layar penuh */
+  overflow: hidden;
+    z-index: 0; /* penting */
+  isolation: isolate; /* <== inilah kuncinya bro 🔥 */
+}
+
+ #video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+section.hero {
+  position: relative;
+  z-index: 1;
+}
+
+.second-background {
+  position: relative;
+  z-index: 0;
+}
+
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.45);
+      z-index: 0;
+    }
+.hero {
+  margin-top: 100px; /* biar konten gak ketiban navbar */
+    z-index: 3;
+}
+    /* Navbar */
+nav {
+  position: fixed; /* ubah dari absolute ke fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 5%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 1002; /* dinaikkan biar di atas semua elemen lain */
+}
+
+
+    nav .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      letter-spacing: 2px;
+      cursor: pointer;
+      position: relative;
+      display: inline-block;
+      margin-right: auto;
+    }
+
+    nav .green-dot {
+      color: #00ff00;
+      font-size: 1.2em;
+      position: relative;
+      top: -0.5em;
+      left: 2px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+   nav ul li {
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+    
+
+    nav ul li::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: white;
+      transition: 0.3s;
+    }
+
+    nav ul li:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger Button */
+    .hamburger {
+      display: none;
+      position: absolute;
+      top: 26px;
+      right: 6%;
+      width: 38px;
+      height: 38px;
+      z-index: 1001;
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      transition: right 0.3s;
+    }
+    .hamburger .bar {
+      display: block;
+      width: 26px;
+      height: 3px;
+      margin: 5px auto;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.4s;
+    }
+    .hamburger.active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Content Hero */
+    .hero {
+      
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 5%;
+      z-index: 3;
+      /* Tambahkan margin-top dua kali lipat dari sebelumnya */
+      margin-top: 100px; /* sebelumnya default (0), sekarang 2x dari tipikal 50px */
+    }
+
+    .hero-content {
+      max-width: 600px;
+      animation: slideUp 1.5s ease;
+       z-index: 5;
+    }
+
+    .countdown {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      opacity: 0.8;
+      animation: glow 2s infinite alternate;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border: 2px solid white;
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      border-radius: 30px;
+      transition: 0.3s ease-in-out;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+      z-index: 3;
+    }
+    .btn span {
+      position: relative;
+      z-index: 2;
+    }
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 30px;
+      background: transparent;
+      backdrop-filter: blur(8px);
+      z-index: 1;
+      pointer-events: none;
+      transition: 
+        backdrop-filter 0.3s,
+        background 0.4s cubic-bezier(.4,0,.2,1),
+        box-shadow 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    .btn:hover::before {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 16px 4px rgba(255,255,255,0.45), 0 0 32px 8px rgba(255,255,255,0.18);
+    }
+    .btn:hover {
+      color: #222;
+      border-color: #fff;
+    }
+
+    /* Overlay About */
+    .about-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: transparent; /* hanya blur, tanpa warna */
+      backdrop-filter: blur(16px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    .about-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+      animation: fadeInScale 0.5s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.95);}
+      to { opacity: 1; transform: scale(1);}
+    }
+    .about-content {
+     
+      border-radius: 18px;
+      padding: 32px 28px;
+      max-width: 480px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      text-align: center;
+      color: #fff;
+      font-size: 1.1rem;
+      position: relative;
+      animation: fadeInScale 0.5s cubic-bezier(.4,0,.2,1);
+    }
+    .about-content h3 {
+      font-size: 1.3em;
+      margin-bottom: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .about-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5em;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .about-close:hover {
+      opacity: 1;
+    }
+    @media (max-width: 600px) {
+      .about-content {
+        padding: 18px 10px;
+        font-size: 0.95rem;
+      }
+    }
+
+    /* Animations */
+    @keyframes slideUp {
+      from {transform: translateY(50px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+
+    @keyframes glow {
+      from {opacity: 0.5;}
+      to {opacity: 1;}
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+      .hamburger {
+        display: block;
+      }
+      .mobile-nav {
+        display: block;
+      }
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      .btn {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+        z-index: 10;
+      }
+      /* Logo tetap di atas dan di atas sidebar */
+      nav .logo {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        z-index: 1100;
+        background: transparent;
+        padding: 20px 5%;
+        pointer-events: none;
+      }
+      .mobile-nav {
+        padding-top: 70px; /* agar sidebar tidak menutupi logo */
+      }
+    }
+
+    /* Mobile Navbar Sidebar */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 70vw;
+      max-width: 340px;
+      height: 100vh;
+      background: rgba(30,30,30,0.25);
+      backdrop-filter: blur(16px);
+      box-shadow: 4px 0 24px rgba(0,0,0,0.12);
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+      padding-top: 70px;
+    }
+    .mobile-nav.active {
+      display: block;
+      transform: translateX(0);
+    }
+    .mobile-nav ul {
+      list-style: none;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .mobile-nav ul li {
+      font-size: 1.2em;
+      cursor: pointer;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: color 0.2s;
+    }
+    .mobile-nav ul li:last-child {
+      border-bottom: none;
+    }
+    .mobile-nav ul li:hover {
+      color: #00ff00;
+    }
+
+    /* Logo Tetap di Atas */
+    .main-logo-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      z-index: 20; /* logo di atas navbar dan header blur */
+      background: transparent;
+      padding: 20px 5%;
+      font-size: 1.5em;
+      font-weight: bold;
+      letter-spacing: 2px;
+      pointer-events: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+    }
+    .main-logo-fixed .green-dot {
+      color: #00ff00;
+      font-size: 1.2em;
+      font-weight: bold;
+      position: relative;
+      top: -0.5em;
+      left: 2px;
+    }
+
+    /* Header Blur Background (selalu tampil, di belakang navbar) */
+    .header-blur-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 80px;
+      z-index: 1; /* pastikan di bawah navbar dan logo */
+      background: transparent;
+      backdrop-filter: blur(18px);
+      pointer-events: none;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
+
+
+  <!-- Material Symbols (icon manusia) -->
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+<style>
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+  vertical-align: middle;
+  font-size: 20px;
+  margin-left: 4px;
+  color: #00ff00; /* sama kayak warna player */
+}
+</style>
+
+</head>
+
+<body>
+
+  
+
+
+
+    <!-- Header Blur Background (selalu tampil, di belakang navbar) -->
+  <div class="header-blur-bg"></div>
+
+  <!-- Logo Tetap di Atas -->
+  <div class="main-logo-fixed">
+    SEA INDONESIA
+    <span class="green-dot">•</span>
+  </div>
+
+    <!-- Mobile Navbar Sidebar -->
+  <nav class="mobile-nav" id="mobileNav">
+    <ul>
+      <li id="aboutBtnMobile">ABOUT</li>
+      <li id="announceBtnMobile">announcemeNT</li>
+      <li id="downloadBtnMobile">DOWNLOAD</li>
+      <li id="tiktokBtnMobile">TIKTOK</li>
+      <li id="analysisBtnMobile">ANALYSIS</li>
+    </ul>
+  </nav>
+
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li id="aboutBtn">ABOUT</li>
+      <li id="announceBtnDesktop">ANNOUNCEMEENT</li>
+      <li id="downloadBtnDesktop">DOWNLOAD</li>
+      <li id="tiktokBtn">TIKTOK</li>
+      <li id="analysisBtnDesktop">ANALYSIS</li>
+    </ul>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </nav>
+<!-- SECTION VIDEO BACKGROUND -->
+<section class="video-section">
+  <!-- =========================
+     🔢 SEA INDONESIA STATS FIXED
+     ========================= -->
+<div class="server-stats" id="serverStats">
+  <div class="stat-item">
+    <h1 id="playerCount">...</h1>
+    <p>PLAYER ONLINE</p>
+  </div>
+  <div class="stat-item">
+    <h1 id="serverCount">...</h1>
+    <p>SERVER AKTIF</p>
+  </div>
+</div>
+
+  <video id="video-background" autoplay loop muted playsinline>
+    <source src="cine.mp4" type="video/mp4">
+    Browser kamu tidak mendukung video tag.
+  </video>
+  <div class="overlay"></div>
+
+
+
+
+  <!-- Overlay About -->
+  <div class="about-overlay" id="aboutOverlay">
+    <div class="about-content">
+      <button class="about-close" id="aboutCloseBtn" title="Tutup">&times;</button>
+      <h3>SEA Indonesia</h3>
+      <div>
+        (San Andreas Multiplayer E-Sports Association News Indonesia) adalah wadah komunitas dan pusat informasi seputar GTA: San Andreas Multiplayer (SA:MP) di Indonesia. SA:MP sendiri merupakan modifikasi dari game Grand Theft Auto: San Andreas yang memungkinkan pemain untuk saling berinteraksi dan bermain bersama secara online—fitur yang tidak tersedia di versi asli game.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="countdown" id="utc-clock"></div>
+      <h1>KEPUTUSAN YANG TEPAT LAHIR DARI DATA YANG KUAT</h1>
+      <a href="#" class="btn"><span>SCROLL</span></a>
+    </div>
+  </section>
+</section>
+
+  <script>
+    function updateUTCClock() {
+      const now = new Date();
+      const hours = String(now.getUTCHours()).padStart(2, '0');
+      const minutes = String(now.getUTCMinutes()).padStart(2, '0');
+      const seconds = String(now.getUTCSeconds()).padStart(2, '0');
+      document.getElementById('utc-clock').textContent = `@akmalshellby (UTC): ${hours}:${minutes}:${seconds}`;
+    }
+    setInterval(updateUTCClock, 1000);
+    updateUTCClock();
+
+    // About Overlay Logic
+    const aboutBtn = document.getElementById('aboutBtn');
+    const aboutOverlay = document.getElementById('aboutOverlay');
+    const aboutCloseBtn = document.getElementById('aboutCloseBtn');
+
+    aboutBtn.addEventListener('click', () => {
+      aboutOverlay.classList.add('active');
+    });
+    aboutCloseBtn.addEventListener('click', () => {
+      aboutOverlay.classList.remove('active');
+    });
+    // Optional: close overlay on outside click
+    aboutOverlay.addEventListener('click', (e) => {
+      if (e.target === aboutOverlay) {
+        aboutOverlay.classList.remove('active');
+      }
+    });
+
+    // Hamburger & Mobile Navbar Logic
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    let navOpen = false;
+
+    hamburgerBtn.addEventListener('click', () => {
+      navOpen = !navOpen;
+      hamburgerBtn.classList.toggle('active', navOpen);
+      mobileNav.classList.toggle('active', navOpen);
+      document.body.style.overflow = navOpen ? 'hidden' : '';
+    });
+
+    // Close mobile nav when clicking outside sidebar
+    mobileNav.addEventListener('click', (e) => {
+      if (e.target === mobileNav) {
+        navOpen = false;
+        hamburgerBtn.classList.remove('active');
+        mobileNav.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // About Overlay Logic (support for mobile nav)
+    const aboutBtnMobile = document.getElementById('aboutBtnMobile');
+    aboutBtnMobile.addEventListener('click', () => {
+      document.getElementById('aboutOverlay').classList.add('active');
+      navOpen = false;
+      hamburgerBtn.classList.remove('active');
+      mobileNav.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    // TIKTOK button logic
+    document.getElementById('tiktokBtn').addEventListener('click', function() {
+      window.open('https://www.tiktok.com/@sampesports', '_blank');
+    });
+    document.getElementById('tiktokBtnMobile').addEventListener('click', function() {
+      window.open('https://www.tiktok.com/@sampesports', '_blank');
+      navOpen = false;
+      hamburgerBtn.classList.remove('active');
+      mobileNav.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    // Announce button logic
+    const announceUrl = 'https://www.whatsapp.com/channel/0029Vb5F4xDHLHQg8ImAdu3v';
+    const announceBtnDesktop = document.getElementById('announceBtnDesktop');
+    if (announceBtnDesktop) {
+      announceBtnDesktop.addEventListener('click', function() {
+        window.open(announceUrl, '_blank');
+      });
+    }
+    const announceBtnMobile = document.getElementById('announceBtnMobile');
+    if (announceBtnMobile) {
+      announceBtnMobile.addEventListener('click', function() {
+        window.open(announceUrl, '_blank');
+        navOpen = false;
+        hamburgerBtn.classList.remove('active');
+        mobileNav.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    }
+
+    // Analysis button logic
+    function scrollToBottomSection() {
+      const lastSection = document.querySelector('.fourth-background');
+      if (lastSection) {
+        lastSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    // Desktop
+    const analysisBtnDesktop = document.getElementById('analysisBtnDesktop');
+    if (analysisBtnDesktop) {
+      analysisBtnDesktop.addEventListener('click', function(e) {
+        e.preventDefault();
+        scrollToBottomSection();
+      });
+    }
+    // Mobile
+    const analysisBtnMobile = document.getElementById('analysisBtnMobile');
+    if (analysisBtnMobile) {
+      analysisBtnMobile.addEventListener('click', function(e) {
+        e.preventDefault();
+        scrollToBottomSection();
+        navOpen = false;
+        hamburgerBtn.classList.remove('active');
+        mobileNav.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    }
+  </script>
+  <script>
+// ===== SCROLL HALUS KE BACKGROUND KEDUA =====
+document.querySelector('.btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  const secondSection = document.querySelector('.second-background');
+  if (secondSection) {
+    secondSection.scrollIntoView({ behavior: 'smooth' });
+  }
+});
+</script>
+
+
+
+<style>
+/* ==== STATISTICS FIXED STYLE ==== */
+.server-stats {
+  position: absolute;
+  bottom: 18%;
+  left: 55%;
+  top: 10%;
+  display: flex;
+  gap: 100px;
+  align-items: center;
+  z-index: 20;
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  transition: opacity 0.4s ease;
+  opacity: 1;
+}
+
+.server-stats.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.server-stats .stat-item h1 {
+  font-size: 3.2rem;
+  margin: 0;
+  color: #fff;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+.server-stats .stat-item p {
+  font-size: 1rem;
+  color: #00ff00;
+  margin-top: 5px;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+/* 🧱 Responsive Mobile View */
+@media (max-width: 768px) {
+  .server-stats {
+    position: absolute;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .server-stats .stat-item h1 {
+    font-size: 2.2rem;
+  }
+
+  .server-stats .stat-item p {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+<script>
+const serverIDs = [
+  9759626, 4785358, 10399323, 10399338, 9435420, 10399322, 4785041, 10399339, 10399020,
+  10318719, 10399327, 4785370, 10399340, 10399341, 10399342, 10399343, 10399344, 10399345,
+  10399346, 10399347, 10399356, 10399348, 10399349, 10399350, 10399351, 10399352, 9865414,
+  10399353, 10399354, 10399355, 10399397, 9767583, 10399399, 5812866, 10399400, 9677763,
+  10399401, 6698028, 10399402, 10399403, 10399404, 10435168, 10435169, 10399324, 10435170,
+  10435171, 10435172, 10435173, 10435174, 6350618, 10180510, 10453307, 10453309, 10453368,
+  10454143, 10454180,
+
+  // Page 2 + tambahan terbaru (bersih tanpa dupe)
+  10601214, 10601215, 10601216, 10473947, 10601217, 10601218, 10601219, 10601220,
+  10601221, 10601222, 9677765, 10601223, 10601224, 10430443, 10601225, 10601226,
+  10601227, 10601228, 10601229, 10601230, 10601231, 10601232, 10601233, 10399110,
+  10601234, 10601235, 10601236, 10601237, 10543312, 9742693
+];
+
+// 🚀 Load cepat dengan placeholder dulu
+document.getElementById('playerCount').textContent = "Loading...";
+document.getElementById('serverCount').textContent = "Loading...";
+
+// Fungsi ambil data server
+async function updateStats() {
+  let totalPlayers = 0;
+  let activeServers = 0;
+  const statsBox = document.getElementById('serverStats');
+
+  try {
+    const promises = serverIDs.map(id =>
+      fetch(`https://api.gamemonitoring.net/servers/${id}`).then(r => r.json()).catch(() => null)
+    );
+    const results = await Promise.all(promises);
+
+    results.forEach(data => {
+      if (data && data.response && data.response.status === true) {
+        activeServers++;
+        totalPlayers += data.response.numplayers || 0;
+      }
+    });
+
+    document.getElementById('playerCount').textContent = totalPlayers.toLocaleString();
+    document.getElementById('serverCount').textContent = activeServers.toLocaleString();
+  } catch (err) {
+    console.warn("Gagal ambil data:", err);
+  }
+}
+
+// Jalankan langsung & update tiap 60 detik
+updateStats();
+setInterval(updateStats, 60000);
+
+// 🎯 Stats hanya muncul selama section pertama (video cine) terlihat
+window.addEventListener('scroll', () => {
+  const stats = document.querySelector('.server-stats');
+  const videoSection = document.querySelector('.video-section');
+  if (!videoSection || !stats) return;
+
+  const sectionRect = videoSection.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  // kalau video masih kelihatan sedikit aja di layar, stats tetap tampil
+  const isVisible = sectionRect.bottom > 150 && sectionRect.top < windowHeight - 150;
+
+  if (isVisible) {
+    stats.classList.remove('hidden');
+  } else {
+    stats.classList.add('hidden');
+  }
+});
+
+
+</script>
+
+
+
+</body>
+</html>
+
+
+<!-- Background Kedua (Bagian Bawah) -->
+<section class="second-background">
+  <div class="leaderboard" id="leaderboard">
+  <div class="leaderboard-list" id="leaderboardList">
+    <!-- Data server dimuat otomatis via JS -->
+  </div>
+</div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="countdown" id="utc-clock"></div>
+      <h1>MENUJU INDONESIA</P> EMAS 2045</h1>
+    <a href="#" class="btn" id="watchBtn"><span>NEXT</span></a>
+
+    </div>
+  </section>
+</section>
+<style>
+  /* ==== FUTURISTIC LEADERBOARD STYLE ==== */
+.leaderboard {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  width: 28%;
+  max-height: 65vh;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 20px rgb(0, 0, 0);
+  padding: 20px;
+  overflow-y: auto;
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+  z-index: 10;
+  scroll-behavior: smooth;
+}
+
+.leaderboard::-webkit-scrollbar {
+  width: 6px;
+}
+.leaderboard::-webkit-scrollbar-thumb {
+  background: rgb(0, 0, 0);
+  border-radius: 6px;
+}
+
+.leaderboard h2 {
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #fff;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leaderboard-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 10px 14px;
+  border-radius: 10px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.leaderboard-item:hover {
+  background: rgb(0, 0, 0);
+  transform: scale(1.02);
+}
+
+.leaderboard-item span:first-child {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.leaderboard-item span:last-child {
+  color: #fff;
+}
+
+/* ==== RESPONSIVE MOBILE ==== */
+@media (max-width: 768px) {
+  .leaderboard {
+    top: 13%;
+    right: 5%;
+    transform: none;
+    width: 340px;
+    margin: 0 auto 20px auto;
+    max-height: 310px;
+    padding: 12px 16px;
+  }
+  .leaderboard-item {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+  .leaderboard h2 {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+}
+
+  html {
+  scroll-behavior: smooth;
+}
+
+  .second-background {
+      position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url('https://cdnb.artstation.com/p/assets/images/images/049/974/515/large/qbcle-1.jpg?1653762262') no-repeat center center/cover;
+  background-attachment: scroll; /* ganti ini dari fixed ke scroll */
+  display: flex;
+  }
+
+  .content-bawah {
+    width: 100%;
+    text-align: center;
+    padding: 60px 5%;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+  }
+
+  .content-bawah h1 {
+    margin-bottom: 20px;
+    color: white;
+  }
+</style>
+
+<!-- Background Ketiga -->
+<section class="third-background">
+  <div class="download-container">
+
+    <!-- KONTENER ANDROID -->
+    <div class="download-card">
+      <h2 class="download-title">ANDROID DOWNLOAD</h2>
+      <p class="download-desc">
+        Unduh GTA San Andreas dan SA:MP Launcher untuk Android.  
+        <br>1️⃣ Pasang SA:MP Launcher dari PlayStore 
+        <br>2️⃣ Download Data
+        <br>3️⃣ Tambahkan IP server favoritmu!
+      </p>
+      <a href="https://play.google.com/store/apps/details?id=ru.unisamp_mobile.launcher&hl=en-US&pli=1" class="download-btn"><span>DOWNLOAD</span></a>
+    </div>
+
+    <!-- KONTENER PC -->
+    <div class="download-card">
+      <h2 class="download-title">PC DOWNLOAD</h2>
+      <p class="download-desc">
+        Unduh GTA San Andreas PC dan SA:MP Client.  
+        <br>1️⃣ Install GTA SA (versi 1.0 prefered)  
+        <br>2️⃣ Pasang SA:MP Client  
+        <br>3️⃣ Jalankan dan konek ke server pilihanmu!
+      </p>
+      <a href="https://www.mediafire.com/file/anav69f465n92ap/BAHAN+GTA+SAMP.rar/file" class="download-btn"><span>DOWNLOAD</span></a>
+    </div>
+
+  </div>
+
+  <!-- TOMBOL BAWAH (di tengah bawah antar card) -->
+  <div class="bawah-btn-wrapper">
+    <a href="#" class="btn bawah-btn"><span>NEXT</span></a>
+  </div>
+</section>
+
+
+<STYLE>.third-background {
+  position: relative;
+  height: 100vh;
+  background: url('https://cs2.gtaall.com.br/screenshots/5a9f9/2016-03/original/394548749926bcd040adb8f9a18292e54e7e935f/324737-gta-sa-2016-03-13-16-48-39-06.jpg') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.third-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* efek gelap biar teks kebaca */
+}
+
+.third-background .content {
+  position: relative;
+  z-index: 2;
+}
+
+.third-background h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.third-background p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+</STYLE>
+
+
+
+
+<style>
+/* ==== DARK FADE TRANSISI ANTAR BACKGROUND ==== */
+
+/* ==== DARK FADE TRANSISI ANTAR BACKGROUND (versi aman) ==== */
+
+/* Hilangkan z-index tinggi dan backdrop blur dari semua fade */
+.video-section::after,
+.second-background::after,
+.third-background::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+  pointer-events: none;
+}
+
+.second-background::before,
+.third-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+  pointer-events: none;
+}
+
+/* Pastikan section gak bikin GPU overwork */
+.video-section,
+.second-background,
+.third-background {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+
+</style>
+<!-- Background Keempat (Video) -->
+<section class="fourth-background">
+  <video autoplay muted loop playsinline id="bg-video4">
+    <source src="babaji.mp4" type="video/mp4">
+    Browser lo gak support video.
+  </video>
+  
+
+<!-- 🌌 BLOOMBERG-STYLE DASHBOARD FINAL -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+<style>
+/* === BLOOMBERG DASHBOARD === */
+.dashboard-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-family: 'Rajdhani', sans-serif;
+  color: #e6eef0;
+}
+
+/* Base glass panel style */
+.panel {
+  position: absolute;
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 0 25px rgba(0, 200, 255, 0.05);
+  padding: 18px;
+  overflow: hidden;
+}
+
+/* === Layout absolute desktop === */
+.panel-1 {
+  top: 180px;
+  left: 60px;
+  width: 300px;
+  height: 200px;
+}
+.panel-2 {
+  top: 180px;
+  right: 60px;
+  width: 800px;
+  height: 420px;
+}
+.panel-3 {
+  top: 400px;
+  left: 60px;
+  width: 300px;
+  height: 190px;
+}
+
+/* === Responsive mobile === */
+@media (max-width: 900px) {
+  .panel {
+    position: relative;
+    width: 90%;
+    left: 5%;
+    right: 5%;
+    margin-bottom: 18px;
+  }
+  .panel-1, .panel-2, .panel-3 {
+    top: 78px;
+    right: auto;
+    height: auto;
+  }
+}
+
+/* === Panel content === */
+.panel-title {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.panel-sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 8px;
+}
+.panel-data {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Dropdown style */
+.dropdown {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+.dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  color: #e3e3e3;
+  cursor: pointer;
+  font-size: 13px;
+}
+.dropdown-list {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 36px;
+  width: 320px;
+  max-height: 320px;
+  overflow-y: auto;
+  background: rgba(5, 10, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  z-index: 99999;
+}
+.dropdown-list.show {
+  display: block;
+}
+.dropdown-item {
+  padding: 8px 10px;
+  color: #d8faff;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.dropdown-item img {
+  width: 22px;
+  height: 16px;
+  border-radius: 3px;
+}
+
+/* Chart area */
+.chart-container {
+  width: 100%;
+  height: 85%;
+}
+.timeframe {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+.timeframe button {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.05);
+  background: rgba(0,0,0,0.3);
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+}
+.timeframe button.active {
+  color: #00d9ff;
+  border-color: rgba(0,217,255,0.4);
+  background: rgba(0,217,255,0.06);
+}
+
+/* Mini stats panel */
+.mini-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  text-align: center;
+}
+.mini-stat .val {
+  color: #00eaff;
+  font-weight: 700;
+  font-size: 20px;
+}
+.mini-stat .lbl {
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+}
+.mini-wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+</style>
+
+<div class="dashboard-container">
+  <!-- PANEL 1 -->
+  <div class="panel panel-1" id="panel1">
+    <div class="panel-title" id="srv_name">SERVER</div>
+    <div class="panel-sub" id="srv_desc"></div>
+    <div class="panel-data">
+      ON IC: <span id="srv_onic">--</span><br>
+      MAX PLAYER: <span id="srv_max">--</span><br>
+      HOSTING: <img id="srv_flag" src="https://cdn.gamemonitoring.net/images/locations/SG.png" width="24" style="vertical-align:middle;border-radius:3px;">
+    </div>
+  </div>
+
+  <!-- PANEL 2 (Chart) -->
+  <div class="panel panel-2" id="panel2">
+    <div class="panel-title" id="chart_title"></div>
+    <div class="dropdown">
+      <button id="srv_btn"><span id="srv_label">Select Server</span><span class="material-symbols-outlined">arrow_drop_down</span></button>
+      <div class="dropdown-list" id="srv_list"></div>
+    </div>
+    <div class="chart-container">
+      <canvas id="playersChart"></canvas>
+    </div>
+    <div class="timeframe">
+      <button data-tf="day" class="active">Day</button>
+      <button data-tf="week">Week</button>
+      <button data-tf="month">Month</button>
+    </div>
+  </div>
+
+  <!-- PANEL 3 -->
+  <div class="panel panel-3" id="panel3">
+    <div class="panel-title">STATISTIK ON IC</div>
+    <div class="mini-wrap">
+      <div class="mini-stat"><div class="val" id="m_max">--</div><div class="lbl">TERTINGGI</div></div>
+      <div class="mini-stat"><div class="val" id="m_avg">--</div><div class="lbl">RATA-RATA</div></div>
+      <div class="mini-stat"><div class="val" id="m_min">--</div><div class="lbl">TERENDAH</div></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+const SERVER_IDS = [
+  "9759626","4785358","10399323","10399338","9435420","10399322","4785041","10399339","10399020",
+  "10318719","10399327","4785370","10399340","10399341","10399342","10399343","10399344","10399345",
+  "10399346","10399347","10399356","10399348","10399349","10399350","10399351","10399352","9865414","10399353",
+  "10399354","10399355","10399397","9767583","10399399","5812866","10399400","9677763","10399401","6698028",
+  "10399402","10399403","10399404","10435168","10435169","10399324","10435170","10435171","10435172","10435173",
+  "10435174","6350618","10180510","10453307","10453309","10453368","10454143","10454180",
+
+  // New IDs (no duplicates)
+  "10601214","10601215","10601216","10473947","10601217","10601218","10601219","10601220",
+  "10601221","10601222","9677765","10601223","10601224","10430443","10601225","10601226",
+  "10601227","10601228","10601229","10601230","10601231","10601232","10601233","10399110",
+  "10601234","10601235","10601236","10601237","10543312","9742693"
+];
+
+  const $ = id => document.getElementById(id);
+  const srvName = $('srv_name'), srvDesc = $('srv_desc'), srvOn = $('srv_onic'), srvMax = $('srv_max'), srvFlag = $('srv_flag');
+  const srvBtn = $('srv_btn'), srvLabel = $('srv_label'), srvList = $('srv_list');
+  const mMax = $('m_max'), mAvg = $('m_avg'), mMin = $('m_min');
+
+  let activeId = "ISSG";
+  let activeTF = "day";
+
+  // === Dropdown ===
+  const indexItem = document.createElement('div');
+  indexItem.className = 'dropdown-item';
+  indexItem.textContent = 'ISSG - INDEKS STATISTIK SERVER GABUNGAN';
+  indexItem.onclick = ()=>{ selectServer("ISSG"); toggleDropdown(false); };
+  srvList.appendChild(indexItem);
+
+  SERVER_IDS.forEach(async id=>{
+    const item = document.createElement('div');
+    item.className = 'dropdown-item';
+    item.textContent = 'Loading...';
+    srvList.appendChild(item);
+
+    try {
+      const r = await fetch(`https://api.gamemonitoring.net/servers/${id}`);
+      const j = await r.json();
+      const name = j.response.name || `Server ${id}`;
+      item.textContent = name;
+      item.onclick = ()=>{ selectServer(id); toggleDropdown(false); };
+    } catch(e) {
+      item.textContent = `Server ${id}`;
+    }
+  });
+
+  function toggleDropdown(show){
+    if(show===undefined) srvList.classList.toggle('show');
+    else if(show) srvList.classList.add('show');
+    else srvList.classList.remove('show');
+  }
+  srvBtn.onclick = (e)=>{ e.stopPropagation(); toggleDropdown(); };
+  document.addEventListener('click',(e)=>{ if(!srvBtn.contains(e.target)) toggleDropdown(false); });
+
+  // === Chart Setup ===
+  const ctx = document.getElementById('playersChart').getContext('2d');
+  const grad = ctx.createLinearGradient(0,0,0,400);
+  grad.addColorStop(0,'rgba(0,217,255,0.3)');
+  grad.addColorStop(1,'rgba(0,0,0,0)');
+
+  const chart = new Chart(ctx, {
+    type:'line',
+    data:{labels:[],datasets:[{data:[],borderColor:'#00d9ff',backgroundColor:grad,fill:true,tension:0.4,pointRadius:0}]},
+    options: {
+      interaction: { mode:'nearest', axis:'x', intersect:false },
+      hoverRadius: 20,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: true,
+          backgroundColor: 'rgba(20, 30, 40, 0.8)',
+          borderColor: 'rgba(255,255,255,0.1)',
+          borderWidth: 1,
+          titleColor: '#00eaff',
+          bodyColor: '#ffffff',
+          displayColors: false,
+          padding: 10,
+          cornerRadius: 8,
+          caretPadding: 8,
+          callbacks: {
+            title: ctx => {
+              const ts = ctx[0].label;
+              const date = new Date(ts);
+              const opts = { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', hour12:true };
+              return date.toLocaleString('en-GB', opts).replace(',', '');
+            },
+            label: ctx => {
+              const y = ctx.parsed.y;
+              return `🧍‍♂️ ON IC: ${y.toLocaleString()}`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: 'rgba(255,255,255,0.6)',
+            callback: val => {
+              const ts = chart.data.labels[val];
+              const d = new Date(ts);
+              const day = d.getDate();
+              const month = d.toLocaleString('en', { month: 'short' });
+              return `${day} ${month}`;
+            }
+          },
+          grid: { color: 'rgba(255,255,255,0.05)' }
+        },
+        y: {
+          ticks: { color: 'rgba(255,255,255,0.6)' },
+          grid: { color: 'rgba(255,255,255,0.05)' }
+        }
+      },
+      onClick: (e) => {
+        const points = chart.getElementsAtEventForMode(e, 'nearest', { intersect: false }, true);
+        if (points.length) {
+          chart.setActiveElements(points);
+          chart.tooltip.setActiveElements(points, {x: e.x, y: e.y});
+          chart.update();
+        }
+      },
+    }
+  });
+
+  // === Fetch Info & Stats ===
+  async function getInfo(id){
+    try{
+      const r=await fetch(`https://api.gamemonitoring.net/servers/${id}`);
+      if(!r.ok)throw 0;
+      return (await r.json()).response;
+    }catch{return null;}
+  }
+
+  async function getStats(id,tf){
+    try{
+      const r=await fetch(`https://api.gamemonitoring.net/servers/${id}/stats/players_online?type=${tf}`);
+      if(!r.ok)throw 0;
+      return (await r.json()).response.items;
+    }catch{return null;}
+  }
+
+  async function getCombinedStats(tf){
+    const combined = {};
+    const promises = SERVER_IDS.map(async (id)=>{
+      try{
+        const r = await fetch(`https://api.gamemonitoring.net/servers/${id}/stats/players_online?type=${tf}`);
+        if(!r.ok) return null;
+        const j = await r.json();
+        return j.response.items;
+      }catch{return null;}
+    });
+    const allResults = await Promise.all(promises);
+
+    for(const data of allResults){
+      if(!data) continue;
+      for(const d of data){
+        const key = d.x || d.date;
+        if(!combined[key]) combined[key] = {sum:0};
+        combined[key].sum += d.y;
+      }
+    }
+    return Object.keys(combined)
+      .map(k=>({x:Number(k),y:combined[k].sum}))
+      .sort((a,b)=>a.x-b.x);
+  }
+
+  async function getLiveTotal(){
+    const promises = SERVER_IDS.map(async (id)=>{
+      try{
+        const r = await fetch(`https://api.gamemonitoring.net/servers/${id}`);
+        if(!r.ok) return 0;
+        const j = await r.json();
+        return j.response.status ? j.response.numplayers || 0 : 0;
+      }catch{return 0;}
+    });
+    const res = await Promise.all(promises);
+    return res.reduce((a,b)=>a+b,0);
+  }
+
+  async function selectServer(id){
+    activeId=id;
+    srvLabel.textContent=(id==="ISSG"?"ISSG - INDEKS STATISTIK SERVER GABUNGAN":id);
+
+    if(id==="ISSG"){
+      srvName.textContent="ISSG - INDEX STATISTIK SERVER GABUNGAN";
+      srvDesc.textContent="Gabungan Statistik Semua Server Indonesia";
+      srvFlag.src="https://cdn.gamemonitoring.net/images/locations/SG.png";
+      const totalNow = await getLiveTotal();
+      srvOn.textContent = totalNow.toLocaleString();
+      srvMax.textContent = "--";
+      const data = await getCombinedStats(activeTF);
+      updateChartData(data);
+    }else{
+      const info=await getInfo(id);
+      if(info){
+        srvName.textContent=info.name||`Server ${id}`;
+        srvDesc.textContent=`${info.gamemode||''} • ${info.map||''}`;
+        srvOn.textContent=info.numplayers||0;
+        srvMax.textContent=info.maxplayers||0;
+        srvFlag.src=`https://cdn.gamemonitoring.net/images/locations/${(info.country||'SG').toUpperCase()}.png`;
+      }
+      const data = await getStats(id, activeTF);
+      updateChartData(data);
+    }
+  }
+
+  function updateChartData(data){
+    if(!data || !data.length){
+      chart.data.labels=[]; chart.data.datasets[0].data=[]; chart.update();
+      mMax.textContent="--";mMin.textContent="--";mAvg.textContent="--";
+      return;
+    }
+    const labels=data.map(d=>new Date((d.x||d.date)*1000));
+    const y=data.map(d=>d.y);
+    chart.data.labels=labels; chart.data.datasets[0].data=y; chart.update();
+
+    const min=Math.min(...y),max=Math.max(...y),avg=Math.round(y.reduce((a,b)=>a+b,0)/y.length);
+    mMax.textContent=max;mMin.textContent=min;mAvg.textContent=avg;srvOn.textContent=y[y.length-1];
+  }
+
+  document.querySelectorAll('.timeframe button').forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll('.timeframe button').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      activeTF=b.dataset.tf;
+      selectServer(activeId);
+    };
+  });
+
+  selectServer(activeId);
+})();
+</script>
+
+
+<!-- 🌌 END DASHBOARD -->
+
+<body style="background-color: black;">
+  <!-- Konten halaman -->
+</body>
+
+<!-- === Watermark Tengah Chart === -->
+<style>
+  .chart-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 60px;
+    color: rgba(200, 200, 200, 0.08); /* abu-abu lembut transparan */
+    pointer-events: none; /* biar gak ganggu klik chart */
+    user-select: none;
+    text-align: center;
+    z-index: 1; /* tampil di atas canvas */
+    animation: fadeIn 2s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const chartCanvas = document.getElementById('playersChart');
+    if (!chartCanvas) return;
+
+    // Bikin elemen watermark
+    const watermark = document.createElement('div');
+    watermark.className = 'chart-watermark';
+    watermark.textContent = 'AKMALSHELLBY';
+
+    // Bungkus canvas dengan container biar posisi absolute bisa diatur
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+    wrapper.style.display = 'inline-block';
+    wrapper.style.width = chartCanvas.width + 'px';
+    wrapper.style.height = chartCanvas.height + 'px';
+
+    // Masukkan chart dan watermark ke wrapper
+    chartCanvas.parentNode.insertBefore(wrapper, chartCanvas);
+    wrapper.appendChild(chartCanvas);
+    wrapper.appendChild(watermark);
+
+    // Update ukuran watermark pas resize window
+    window.addEventListener('resize', () => {
+      watermark.style.fontSize = Math.max(chartCanvas.clientWidth / 12, 30) + 'px';
+    });
+  });
+</script>
+
+
+  </div>
+  
+</section>
+
+<style>.fourth-background {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+#bg-video4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Optional: tambahin efek gelap biar teks kebaca */
+.fourth-background .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  z-index: 1;
+}
+
+.fourth-background .content-fourth {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+</style>
+
+
+<style>
+/* ===========================
+   🔒 Anti Tap Highlight (All Device)
+   =========================== */
+
+/* Hilangin efek tap biru, shadow, dan callout di semua browser & device */
+* {
+  -webkit-tap-highlight-color: transparent; /* Hilangin highlight di Android/iOS */
+  -webkit-touch-callout: none;              /* Matikan menu tahan lama (copy/share) di iOS */
+  -webkit-user-select: none;                /* Biar gak bisa seleksi teks di Safari */
+  -moz-user-select: none;                   /* Firefox */
+  -ms-user-select: none;                    /* Internet Explorer */
+  user-select: none;                        /* Semua browser modern */
+  outline: none;                            /* Hilangin outline focus */
+}
+
+/* Matikan efek klik default di tombol dan link */
+button, a, input, textarea {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  background: none;
+  border: none;
+}
+
+/* Hilangin efek aktif di link (biru/abu default) */
+a:active, a:focus, button:focus, button:active {
+  outline: none;
+  box-shadow: none;
+}
+</style>
+
+<script>
+// === FUTURISTIC LEADERBOARD ===
+async function loadLeaderboard() {
+  const listEl = document.getElementById('leaderboardList');
+  listEl.innerHTML = `<p style="text-align:center;opacity:0.6;">Loading...</p>`;
+
+  const results = await Promise.all(
+    serverIDs.map(id => 
+      fetch(`https://api.gamemonitoring.net/servers/${id}`).then(r => r.json()).catch(() => null)
+    )
+  );
+
+  let servers = [];
+  results.forEach(data => {
+    if (data && data.response && data.response.status === true) {
+      servers.push({
+        name: data.response.name,
+        players: data.response.numplayers || 0
+      });
+    }
+  });
+
+  // Sort descending
+  servers.sort((a,b) => b.players - a.players);
+
+  // Generate HTML
+listEl.innerHTML = servers.map((srv, index) => `
+  <div class="leaderboard-item">
+    <span><span class="rank-number">${index + 1}.</span> ${srv.name}</span>
+    <span class="player-count">
+      ${srv.players}
+      <span class="material-symbols-outlined">person</span>
+    </span>
+  </div>
+`).join('');
+
+
+
+}
+
+loadLeaderboard();
+setInterval(loadLeaderboard, 60000);
+</script>
+  
+<style>@media (max-width: 768px) {
+  section.hero {
+    position: relative;
+    z-index: 2000 !important;
+  }
+
+  .hero .btn {
+    z-index: 3000 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .second-background .hero {
+    margin-top: 150px !important; /* naikkan nilai ini kalau masih terlalu atas */
+  }
+}
+
+
+</style>
+
+<style>/* Nomor urut hijau */
+/* Nomor urut hijau */
+.rank-number {
+  color: #00ff00 !important;
+  font-weight: 700;
+}
+
+/* Jumlah player hijau */
+.player-count {
+  color: #00ff00 !important;
+  font-weight: 600;
+}
+
+/* Top 3 warna spesial */
+.leaderboard-item:nth-child(1) .rank-number { color: gold !important; }
+.leaderboard-item:nth-child(2) .rank-number { color: silver !important; }
+.leaderboard-item:nth-child(3) .rank-number { color: #cd7f32 !important; }
+
+</style>
+
+<style>.player-count {
+  display: inline-flex;
+  align-items: center;      /* sejajarin secara vertikal */
+  justify-content: flex-end;
+  gap: 4px;                 /* jarak antara angka dan icon */
+  color: #00ff00 !important;
+  font-weight: 600;
+  white-space: nowrap;      /* cegah turun ke bawah */
+}
+
+.player-count .material-symbols-outlined {
+  font-size: 16px;          /* lebih kecil biar muat */
+  line-height: 1;
+  position: relative;
+  top: 1px;                 /* biar sejajar sempurna */
+  opacity: 0.9;
+}
+</style>
+
+<style>.player-count .material-symbols-outlined {
+  font-size: 16px;
+  line-height: 1;
+  position: relative;
+  top: 1px;
+  opacity: 0.9;
+  text-shadow:
+    0 0 4px #000000,
+    0 0 8px #ffffff,
+    0 0 12px #ffffff;
+  transition: all 0.25s ease;
+}
+
+/* Efek glow makin terang saat hover leaderboard */
+.leaderboard-item:hover .player-count .material-symbols-outlined {
+  text-shadow:
+    0 0 6px #ffffff,
+    0 0 12px #ffffff,
+    0 0 20px #ffffff,
+    0 0 28px #ffffff;
+  transform: scale(1.15);
+  opacity: 1;
+}
+</style>
+
+<script>// ===== SCROLL HALUS KE BACKGROUND KETIGA =====
+const watchBtn = document.getElementById('watchBtn');
+if (watchBtn) {
+  watchBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const thirdSection = document.querySelector('.third-background');
+    if (thirdSection) {
+      thirdSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      console.warn("Section ketiga (.third-background) tidak ditemukan!");
+    }
+  });
+}
+</script>
+
+<style>/* === DOWNLOAD PAGE STYLING === */
+.third-background {
+  position: relative;
+  min-height: 100vh;
+  background: url('https://cs2.gtaall.com.br/screenshots/5a9f9/2016-03/original/394548749926bcd040adb8f9a18292e54e7e935f/324737-gta-sa-2016-03-13-16-48-39-06.jpg') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 60px 5%;
+}
+
+.download-container {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+  max-width: 1100px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* tiap kartu download */
+.download-card {
+  flex: 1;
+  min-width: 320px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  padding: 40px 28px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.download-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 30px rgb(0, 255, 0);
+}
+
+/* judul glow besar */
+.download-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  color: #ffffff;
+  text-shadow:
+    0 0 8px #ffffff,
+    0 0 16px #ffffff,
+    0 0 32px #ffffff;
+}
+
+/* deskripsi kecil */
+.download-desc {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 28px;
+  opacity: 0.9;
+}
+
+/* tombol download */
+.download-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  border: 2px solid #00ff00;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  border-radius: 30px;
+  transition: 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  backdrop-filter: blur(4px);
+}
+
+.download-btn:hover {
+  color: rgb(255, 255, 255);
+  background: #00ff00;
+  box-shadow: 0 0 16px #00ff00, 0 0 32px #00ff00;
+}
+
+/* === RESPONSIVE MOBILE === */
+@media (max-width: 768px) {
+  .download-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .download-card {
+    width: 100%;
+  }
+
+  .download-title {
+    font-size: 1.4rem;
+  }
+}
+/* ===== HIDE PC DOWNLOAD DI MOBILE ===== */
+@media (max-width: 768px) {
+  .download-card:nth-child(2) {
+    display: none !important;
+  }
+}
+
+</style>
+
+<style>/* === POSISI BUTTON BAWAH (PERFECT FIX) === */
+/* === POSISI BUTTON BAWAH (FINAL FIX) === */
+
+/* DESKTOP: di tengah bawah di antara Android & PC */
+@media (min-width: 769px) {
+  .bawah-btn-wrapper {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 5;
+  }
+}
+
+/* MOBILE: tetap di tengah bawah layar */
+@media (max-width: 768px) {
+  .bawah-btn-wrapper {
+    position: absolute;
+    bottom: 30px;          /* jarak dari bawah layar */
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    text-align: center;
+    z-index: 5;
+  }
+}
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const downloadBtnDesktop = document.getElementById('downloadBtnDesktop');
+  const downloadBtnMobile = document.getElementById('downloadBtnMobile');
+
+  function scrollToThird() {
+    const thirdSection = document.querySelector('.third-background');
+    if (thirdSection) {
+      thirdSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      console.warn("Section ketiga (.third-background) gak ditemukan!");
+    }
+  }
+
+  // === Desktop Navbar ===
+  if (downloadBtnDesktop) {
+    downloadBtnDesktop.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToThird();
+    });
+  }
+
+  // === Mobile Navbar ===
+  if (downloadBtnMobile) {
+    downloadBtnMobile.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToThird();
+
+      // Tutup sidebar habis klik
+      const mobileNav = document.getElementById('mobileNav');
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      if (mobileNav && hamburgerBtn) {
+        mobileNav.classList.remove('active');
+        hamburgerBtn.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+});
+</script>
+
+
+
+<style>nav ul li {
+  position: relative;
+  z-index: 3000; /* biar pasti di atas header blur dan overlay */
+  cursor: pointer;
+}
+</style>
+
+<script>
+document.querySelector('.bawah-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  const target = document.querySelector('.fourth-background');
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth' });
+  }
+});
+</script>
+
+
+
